@@ -14,16 +14,42 @@ const config = {
 		path: path.resolve(__dirname, 'dist')
 	},
 	module: {
-		rules: [{
-			test: /.js?$/,
-			include: [
-				path.resolve(__dirname, 'src')
-			],
-			exclude: [
-				path.resolve(__dirname, 'node_modules')
-			],
-			loader: 'babel-loader'
-		}]
+        rules: [
+            {
+                test: /.js?$/,
+                include: [
+                    path.resolve(__dirname, 'src')
+                ],
+                exclude: [
+                    path.resolve(__dirname, 'node_modules')
+                ],
+                loader: 'babel-loader'
+            },
+            {
+                test: /.scss?$/,
+                include: [
+                    path.resolve(__dirname, 'src')
+                ],
+                exclude: [
+                    path.resolve(__dirname, 'node_modules')
+                ],
+                use: [
+                    'style-loader',
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            importLoaders: 1
+                        }
+                    },
+                    {
+                        loader: 'sass-loader',
+                        options: {
+                            noIeCompat: true
+                        }
+                    }
+                ]
+            }
+        ]
 	},
 	resolve: {
 		extensions: ['.json', '.js', '.jsx', '.css']
@@ -40,7 +66,7 @@ const config = {
 
 if (isDev) {
     config.devServer = {
-        host: '0.0.0.0',
+        host: 'localhost',
         port: '3000',
         contentBase: '.dist',
         hot: true

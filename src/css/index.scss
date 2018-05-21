@@ -1,0 +1,74 @@
+html,
+body,
+.root,
+.main {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.main {
+    display: flex;
+}
+
+.sidebar {
+    flex: 0 0 300px;
+    border-right: 1px solid #e1e4e8;
+    overflow-y: auto;
+
+    .item {
+        padding: 10px;
+        border-bottom: 1px solid #e1e4e8;
+        cursor: pointer;
+    }
+
+    .name {
+        color: #0366d6;
+        font-size: 16px;
+    }
+
+    .desc {
+        color: #586069;
+        margin: 5px 0;
+        font-size: 14px;
+    }
+
+    .info {
+        display: flex;
+        font-size: 12px;
+    }
+
+    .lang {
+        margin-right: 10px;
+
+        * {
+            display: inline-block;
+            vertical-align: middle;
+        }
+    }
+
+    .point {
+        width: 15px;
+        height: 15px;
+        border-radius: 10px;
+        margin-right: 5px;
+    }
+
+    .star {
+        * {
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        span {
+            margin-right: 10px;
+        }
+    }
+}
+
+.content {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    padding: 20px;
+}
