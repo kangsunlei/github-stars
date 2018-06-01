@@ -26,6 +26,18 @@ const config = {
                 loader: 'babel-loader'
             },
             {
+                test: /\.css?$/,
+                use: [
+                    'style-loader',
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            importLoaders: 1
+                        }
+                    }
+                ]
+            },
+            {
                 test: /.scss?$/,
                 include: [
                     path.resolve(__dirname, 'src')

@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import Sidebar from './Sidebar';
 import { ApolloConsumer } from 'react-apollo';
 import { Base64 } from 'js-base64';
+import marked from 'marked';
+import hljs from 'highlight.js';
 
+import 'highlight.js/styles/tomorrow-night.css';
 import '../css/index.scss';
 
 class Main extends Component {
@@ -11,6 +14,12 @@ class Main extends Component {
         this.state = {
             content: ''
         }
+
+        marked.setOptions({
+            highlight: function (code) {
+                return hljs.highlightAuto(code).value;
+            }
+        });
     }
     
     hanldeClick = (nameWithOwner) => {
@@ -19,14 +28,7 @@ class Main extends Component {
                 return res.json();
             })
             .then(data => {
-                const body = Base64.decode(data.content)
-                return fetch('https://api.github.com/markdown/raw', {
-                    method: 'POST',
-                    body
-                });
-            }).then(res => {
-                return res.text();
-            }).then(content => {
+                const content = Base64.decode(data.content)
                 this.setState({
                     content
                 });
@@ -39,7 +41,7 @@ class Main extends Component {
             <ApolloConsumer>
                 {client => <div className="main">
                     <Sidebar client={client} onClick={this.hanldeClick} />
-                    <div className="content" dangerouslySetInnerHTML={{ __html: content }}></div>
+                    <div className="content" dangerouslySetInnerHTML={{ __html: marked(content) }}></div>
                 </div>}
             </ApolloConsumer>
         );
